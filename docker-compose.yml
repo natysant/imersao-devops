@@ -1,0 +1,26 @@
+services:
+  api:
+    # Constrói a imagem a partir do Dockerfile no diretório atual (.)
+    build: .
+    # Mapeia a porta 8000 do host para a porta 8000 do contêiner
+    container_name: escola-api
+    ports:
+      - "8000:8000"
+    # Monta o diretório atual do host no diretório /app do contêiner
+    # Isso permite o live-reload: alterações no seu código local refletem imediatamente no contêiner
+    volumes:
+      - .:/app
+    # Define variáveis de ambiente para o contêiner.
+    # A aplicação agora usará um banco de dados localizado dentro do diretório /app do contêiner.
+    #environment:
+      #- DATABASE_URL=sqlite:////app/escola.db
+    # Conecta o serviço a uma rede customizada.
+    #networks:
+      #- escola-net
+    # O comando de inicialização agora é lido diretamente da instrução CMD no Dockerfile,
+    # evitando duplicação e mantendo a imagem como a única fonte da verdade.
+
+# Define as redes que os serviços podem usar.
+#networks:
+  #escola-net:
+    #driver: bridge
