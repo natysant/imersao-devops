@@ -1,64 +1,82 @@
 # Imersão DevOps - Alura Google Cloud
 
-Este projeto é uma API desenvolvida com FastAPI para gerenciar alunos, cursos e matrículas em uma instituição de ensino.
+# API de Gestão Escolar
 
-## Pré-requisitos
+[![Python Version](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![Framework](https://img.shields.io/badge/framework-FastAPI-green.svg)](https://fastapi.tiangolo.com/)
+[![Database](https://img.shields.io/badge/database-SQLite-blue.svg)](https://www.sqlite.org/index.html)
 
-- [Python 3.10 ou superior instalado](https://www.python.org/downloads/)
-- [Git](https://git-scm.com/downloads)
-- [Docker](https://www.docker.com/get-started/)
+API RESTful desenvolvida com FastAPI para gerenciar alunos, cursos e matrículas em uma instituição de ensino. Este projeto foi criado como parte da Imersão DevOps da Alura.
 
-## Passos para subir o projeto
+## ✨ Funcionalidades
 
-1. **Faça o download do repositório:**
-   [Clique aqui para realizar o download](https://github.com/guilhermeonrails/imersao-devops/archive/refs/heads/main.zip)
+- **Gestão de Alunos:** CRUD completo para alunos (Criar, Ler, Atualizar, Deletar).
+- **Busca de Alunos:** Pesquisa de alunos por nome (parcial) ou e-mail.
+- **Gestão de Cursos:** Criação, listagem e atualização de cursos.
+- **Sistema de Matrículas:**
+  - Realizar matrícula de um aluno em um curso.
+  - Listar todos os cursos em que um aluno está matriculado.
+  - Listar todos os alunos matriculados em um determinado curso.
+- **Documentação Interativa:** Geração automática de documentação da API com Swagger UI e ReDoc.
 
-2. **Crie um ambiente virtual:**
-   ```sh
-   python3 -m venv ./venv
-   ```
+## Endpoints da API
 
-3. **Ative o ambiente virtual:**
-   - No Linux/Mac:
-     ```sh
-     source venv/bin/activate
-     ```
-   - No Windows:
-     ```sh
-     venv\Scripts\activate
-     ```
+A documentação completa e interativa está disponível em `/docs` após iniciar a aplicação.
 
-4. **Instale as dependências:**
-   ```sh
-   pip install -r requirements.txt
-   ```
+### Alunos (`/alunos`)
+- `GET /alunos`: Lista todos os alunos.
+- `GET /alunos/{aluno_id}`: Busca um aluno pelo ID.
+- `GET /alunos/nome/{nome_aluno}`: Busca aluno(s) por nome.
+- `GET /alunos/email/{email_aluno}`: Busca um aluno pelo e-mail.
+- `POST /alunos`: Cria um novo aluno.
+- `PUT /alunos/{aluno_id}`: Atualiza um aluno existente.
+- `DELETE /alunos/{aluno_id}`: Deleta um aluno.
 
-5. **Execute a aplicação:**
-   ```sh
-   uvicorn app:app --reload
-   ```
+### Cursos (`/cursos`)
+- `GET /cursos`: Lista todos os cursos.
+- `GET /cursos/{codigo_curso}`: Busca um curso pelo seu código.
+- `POST /cursos`: Cria um novo curso.
+- `PUT /cursos/{codigo_curso}`: Atualiza um curso existente.
 
-6. **Acesse a documentação interativa:**
+### Matrículas (`/matriculas`)
+- `POST /matriculas`: Cria uma nova matrícula (vincula um aluno a um curso).
+- `GET /matriculas/aluno/{nome_aluno}`: Lista os cursos de um aluno.
+- `GET /matriculas/curso/{codigo_curso}`: Lista os alunos de um curso.
 
-   Abra o navegador e acesse:  
-   [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+## 🛠️ Tecnologias Utilizadas
 
-   Aqui você pode testar todos os endpoints da API de forma interativa.
+- Python 3.10+
+- FastAPI - Framework web.
+- Pydantic - Para validação de dados.
+- SQLAlchemy - ORM para interação com o banco de dados.
+- SQLite - Banco de dados relacional.
+- Uvicorn - Servidor ASGI.
 
----
+## 🚀 Começando
 
-## Estrutura do Projeto
+### Pré-requisitos
 
-- `app.py`: Arquivo principal da aplicação FastAPI.
-- `models.py`: Modelos do banco de dados (SQLAlchemy).
-- `schemas.py`: Schemas de validação (Pydantic).
-- `database.py`: Configuração do banco de dados SQLite.
-- `routers/`: Diretório com os arquivos de rotas (alunos, cursos, matrículas).
-- `requirements.txt`: Lista de dependências do projeto.
+- Python 3.10 ou superior
+- Git
+- Docker (Opcional, para containerização)
 
----
+## 🗃️ Banco de Dados
 
-- O banco de dados SQLite será criado automaticamente como `escola.db` na primeira execução.
-- Para reiniciar o banco, basta apagar o arquivo `escola.db` (isso apagará todos os dados).
+- O projeto utiliza **SQLite** como banco de dados.
+- O arquivo do banco, `escola.db`, será criado automaticamente na raiz do projeto na primeira vez que a aplicação for executada.
+- Para reiniciar o banco de dados (apagando todos os dados), simplesmente delete o arquivo `escola.db`.
 
----
+## 📁 Estrutura do Projeto
+```
+.
+├── app.py              # Arquivo principal da aplicação FastAPI
+├── database.py         # Configuração do banco de dados (SQLAlchemy)
+├── models.py           # Modelos do banco de dados (tabelas)
+├── schemas.py          # Schemas de validação de dados (Pydantic)
+├── requirements.txt    # Lista de dependências Python
+├── readme.md           # Este arquivo
+└── routers/
+    ├── alunos.py       # Rotas para a entidade Aluno
+    ├── cursos.py       # Rotas para a entidade Curso
+    └── matriculas.py   # Rotas para a entidade Matrícula
+```
